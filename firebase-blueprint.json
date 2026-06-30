@@ -1,0 +1,77 @@
+{
+  "entities": {
+    "Notification": {
+      "title": "Notification",
+      "description": "System or status notification for citizens or authorities",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique notification ID" },
+        "title": { "type": "string", "description": "Notification heading title" },
+        "body": { "type": "string", "description": "Detailed text content body" },
+        "type": { "type": "string", "enum": ["status_update", "reward_earned", "duplicate_fused", "dispatch", "sla_breach", "system_alert", "escalation"] },
+        "isRead": { "type": "boolean", "description": "True if read" },
+        "relatedComplaintId": { "type": "string", "description": "Optional reference complaint ID" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "ISO creation timestamp" },
+        "recipientRole": { "type": "string", "enum": ["citizen", "authority"] },
+        "department": { "type": "string", "description": "Target dispatch department if any" },
+        "priority": { "type": "string", "enum": ["low", "medium", "high", "critical"] }
+      },
+      "required": ["id", "title", "body", "type", "isRead", "createdAt", "recipientRole"]
+    },
+    "Complaint": {
+      "title": "Complaint",
+      "description": "Citizen civic hazard or issue complaint ticket",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique ticket ID" },
+        "title": { "type": "string", "description": "Complaint title" },
+        "description": { "type": "string", "description": "Complaint description text" },
+        "category": { "type": "string", "description": "System categorised issue classification" },
+        "location": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" },
+            "geohash": { "type": "string" },
+            "accuracy": { "type": "number" }
+          },
+          "required": ["lat", "lng", "geohash", "accuracy"]
+        },
+        "media": { "type": "array", "description": "List of media files including image/voice references" },
+        "status": { "type": "string", "description": "Active ticket status state" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "priority": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+        "severityScore": { "type": "integer" },
+        "assignedDept": { "type": "string" },
+        "workNotes": { "type": "string" },
+        "completionPhotoUrl": { "type": "string" },
+        "assignedEngineerName": { "type": "string" },
+        "slaDeadline": { "type": "string", "format": "date-time" },
+        "comments": { "type": "array" },
+        "escalationHistory": { "type": "array" },
+        "timeline": {
+          "type": "object",
+          "properties": {
+            "reportedAt": { "type": "string", "format": "date-time" },
+            "assignedAt": { "type": "string", "format": "date-time" },
+            "resolvedAt": { "type": "string", "format": "date-time" },
+            "closedAt": { "type": "string", "format": "date-time" },
+            "escalatedAt": { "type": "string", "format": "date-time" }
+          },
+          "required": ["reportedAt"]
+        }
+      },
+      "required": ["id", "title", "description", "category", "location", "media", "status", "timestamp", "priority", "severityScore", "assignedDept", "timeline"]
+    }
+  },
+  "firestore": {
+    "notifications": {
+      "schema": "Notification",
+      "description": "Global user notifications collection"
+    },
+    "complaints": {
+      "schema": "Complaint",
+      "description": "Civic complaints and tickets"
+    }
+  }
+}

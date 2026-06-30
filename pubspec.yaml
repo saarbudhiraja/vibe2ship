@@ -1,0 +1,46 @@
+name: civora
+description: "Civora - Unified Municipal Reporting & Resource Allocation Platform"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  
+  # Firebase Core and SDKs for Real-Time cloud persistence and authentication
+  firebase_core: ^3.1.1
+  firebase_auth: ^5.1.1
+  cloud_firestore: ^5.0.1
+  
+  # Social Sign-In credentials handler
+  google_sign_in: ^6.2.1
+
+  # State Management & DI Engine
+  flutter_riverpod: ^2.5.1
+  
+  # Declarative role-based routing
+  go_router: ^14.2.0
+
+  # Functional Programming helpers (Either, Option, Task)
+  fpdart: ^0.3.0
+
+  # Value equality utility
+  equatable: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  
+  # Lint rules for quality enforcement
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/

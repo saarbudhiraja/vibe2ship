@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny catch-all to prevent unauthorized access to undescribed paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    match /notifications/{notifId} {
+      allow read, write: if true;
+    }
+    match /complaints/{complaintId} {
+      allow read, write: if true;
+    }
+  }
+}
